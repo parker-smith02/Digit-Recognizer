@@ -6,6 +6,7 @@ from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.utils import np_utils
 
+
 def prepare_data() -> tuple:
 
     (x_training, y_training), (x_testing, y_testing) = mnist.load_data()  #load mnist dataset
@@ -67,7 +68,27 @@ def evaluate_model(model, data):
     print('Test Accuracy:', score[1])
 
 def visualize_output(model, data):
-    pass
+    x_testing, y_testing = data[1], data[3]
+    for i in range(1):
+        num = random.randint(0, 10000)
+        correct_array = y_testing[num]
+        guess_array = model.predict(x_testing[[num]])
+        for j in range(10):
+            if correct_array[j] == 1:
+                correct = j 
+                break
+
+        max_digit = np.amax(guess_array)
+        guess = np.where(guess_array == max_digit)
+        guess = guess[1][0]
 
 
+        fig = plt.imshow(x_testing[[num]].reshape(28,28), cmap='gray', interpolation='none')
+        print(type(fig))
+        print(fig)
+        plt.show()
+
+        print('Correct:', correct)
+        print('Guess:', guess, '\n')
+        
     

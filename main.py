@@ -10,6 +10,7 @@ model = train_model(model, data)
 
 evaluate_model(model, data)
 
+visualize_output(model, data)
 
 
 
