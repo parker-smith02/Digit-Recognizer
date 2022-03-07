@@ -6,11 +6,18 @@ from keras.models import Sequential
 from keras.layers.core import Dense, Dropout, Activation
 from keras.utils import np_utils
 
+def format_array(array):
+    array = array.reshape(1, 784)
+    array = array.astype('float32')
+    array /= 255
+    return array
+
 
 def prepare_data() -> tuple:
 
     (x_training, y_training), (x_testing, y_testing) = mnist.load_data()  #load mnist dataset
 
+    print(type(x_training))
     x_training = x_training.reshape(60000, 784)                   #reshape data from 28x28 matricies to 784 length arrays
     x_testing = x_testing.reshape(10000, 784)
 
@@ -57,7 +64,7 @@ def compile_model(model):
 
 def train_model(model, data):
     x_training, y_training = data[0], data[2]
-    model.fit(x_training, y_training, batch_size=128, epochs=5, verbose=1)
+    model.fit(x_training, y_training, batch_size=128, epochs=10, verbose=1)
 
     return model
 
@@ -90,5 +97,8 @@ def visualize_output(model, data):
 
         print('Correct:', correct)
         print('Guess:', guess, '\n')
-        
-    
+
+
+
+def predict(model, input):
+    return model.predict(input)
